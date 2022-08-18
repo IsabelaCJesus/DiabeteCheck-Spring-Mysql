@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import java.util.Date;
+
 import static javax.persistence.GenerationType.AUTO;
 
 @Entity
@@ -21,7 +23,7 @@ public class Launch {
     private String height;
     private String abdominalCircumference;
     private String coren;
-    private String date;
+    private Date date;
     private String schooling;
     private String idPatient;
     private String age;
@@ -32,4 +34,3 @@ public class Launch {
     private String evolutionaryTime;
     private String triglycerides;
 }
-

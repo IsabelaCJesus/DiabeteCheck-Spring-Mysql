@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,7 @@ public class LaunchResource {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_NURSE', 'ROLE_DOCTOR')")
     @PostMapping("/launch/save")
     public ResponseEntity<Launch> saveLaunch(@RequestBody Launch launch){
+        launch.setDate(new Date(System.currentTimeMillis() - 10800000));
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/launch/save").toUriString());
         return ResponseEntity.created(uri).body(launchService.saveLaunch(launch));
     }
@@ -59,6 +61,7 @@ public class LaunchResource {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_NURSE', 'ROLE_DOCTOR')")
     @PutMapping("/launch/update/{id}")
     public Launch updateLaunchById(@RequestBody Launch launch, @PathVariable("id") Long id) {
+        launch.setDate(new Date(System.currentTimeMillis() - 10800000));
         return launchService.updateLaunchById(launch, id);
     }
 }
