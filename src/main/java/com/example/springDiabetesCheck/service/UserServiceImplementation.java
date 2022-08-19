@@ -65,6 +65,18 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
     }
 
     @Override
+    public User updatePasswordByIdUser(String password, Long id){
+        Optional<User> op = userRepository.findById(id);
+        if(op.isPresent()) {
+            User obj = op.get();
+            obj.setPassword(passwordEncoder.encode(password));
+            userRepository.save(obj);
+            return obj;
+        }
+        return null;
+    }
+
+    @Override
     public void deleteUser(Long id){
         log.info("Deletando usuário {} do banco de dados", id);
         if(userRepository.existsById(id)){

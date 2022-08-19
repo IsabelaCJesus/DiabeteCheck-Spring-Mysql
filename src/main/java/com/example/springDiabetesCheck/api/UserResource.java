@@ -44,7 +44,7 @@ public class UserResource {
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_NURSE', 'ROLE_DOCTOR')")
+    //@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_NURSE', 'ROLE_DOCTOR')")
     @GetMapping("user/get/{username}")
     public User getUser(@PathVariable("username") String username){
         return userService.getUser(username);
@@ -60,6 +60,12 @@ public class UserResource {
     @PutMapping("/user/update/{id}")
     public User updateUserById(@RequestBody String name, @PathVariable("id") Long id) {
         return userService.updateUserById(name, id);
+    }
+
+    //@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_NURSE', 'ROLE_DOCTOR')")
+    @PutMapping("/user/updatePassword/{id}")
+    public User updatePasswordByIdUser(@RequestBody String password, @PathVariable("id") Long id) {
+        return userService.updatePasswordByIdUser(password, id);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_NURSE', 'ROLE_DOCTOR')")
