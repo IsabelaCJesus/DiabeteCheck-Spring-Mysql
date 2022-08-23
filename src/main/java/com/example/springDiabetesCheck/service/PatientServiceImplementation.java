@@ -6,8 +6,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.lang.String;
 
 @Service
 @RequiredArgsConstructor
@@ -16,10 +19,18 @@ import java.util.Optional;
 public class PatientServiceImplementation implements PatientService {
     private final PatientRepository patientRepository;
 
+    class SortByName implements Comparator<Patient> {
+        @Override
+        public int compare(Patient p1, Patient p2) {
+            return p1.getName().compareTo(p2.getName());
+        }
+    }
     @Override
     public List<Patient> getPatients() {
         log.info("Buscando todos os pacientes");
-        return patientRepository.findAll();
+        List<Patient> list = patientRepository.findAll();
+        Collections.sort(list, new SortByName());
+        return list;
     }
     @Override
     public Patient savePatient(Patient patient) {
