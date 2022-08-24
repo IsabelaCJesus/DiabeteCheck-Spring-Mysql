@@ -69,6 +69,12 @@ public class UserResource {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_NURSE', 'ROLE_DOCTOR')")
+    @PutMapping("/user/activate/{id}")
+    public User activateUser(@PathVariable("id") Long id) {
+       return userService.activateUser(id);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_NURSE', 'ROLE_DOCTOR')")
     @PostMapping("/role/save")
     public ResponseEntity<Role> saveRole(@RequestBody Role role){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());

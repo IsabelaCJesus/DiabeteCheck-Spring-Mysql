@@ -109,4 +109,16 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
         log.info("Buscando todos os usuarios");
         return userRepository.findAll();
     }
+
+    @Override
+    public User activateUser(Long id){
+        Optional<User> op = userRepository.findById(id);
+        if(op.isPresent()) {
+            User obj = op.get();
+            obj.setStatus("1");
+            userRepository.save(obj);
+            return obj;
+        }
+        return null;
+    }
 }
